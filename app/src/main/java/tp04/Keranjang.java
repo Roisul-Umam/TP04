@@ -10,7 +10,7 @@ public class Keranjang {
         if (kuantitas < 1) {
             System.out.println("Kuantitas tidak boleh kurang dari 1!");
             return false;
-        }
+        } 
         keranjang.add(produk);
         produk.setKuantitas(kuantitas);
         System.out.println("Produk berhasil ditambahkan ke keranjang!");
@@ -44,7 +44,7 @@ public class Keranjang {
                 if (totalBerat <= 1000) {
                     ongkir = 10000;
                 } else {
-                    ongkir = 10000;
+                    ongkir = 10000 + ((int) Math.ceil((totalBerat-1000) / 1000)) * 5000;
                 }
             }
         }
@@ -54,21 +54,24 @@ public class Keranjang {
     public int hitungTotal(String tipeMember, String kodeVoucher) {
         int subtotal = hitungSubtotal();
         int ongkir = hitungOngkir();
-        int total = subtotal + ongkir;
+        int memberDiscount = 0;
+        String tipememberNew = tipeMember.toLowerCase();
         // Diskon member
-        if (tipeMember.equals("Silver")) {
-            total *= 0.95;
-        } else if (tipeMember.equals("Gold")) {
-            total *= 0.90;
-        } else if (tipeMember.equals("Platinum")) {
-            total *= 0.85;
+        switch (tipememberNew) {
+            case "silver" -> memberDiscount = (int) (subtotal * 0.15);
+            case "gold" -> memberDiscount = (int) (subtotal * 0.25);
+            case "platinum" -> memberDiscount = (int) (subtotal * 0.35);
+            default -> {}
         }
         // Diskon voucher
-        if (kodeVoucher.equals("VOUCHER10")) {
-            total -= 10000;
-        } else if (kodeVoucher.equals("VOUCHER20")) {
-            total -= 20000;
+        if (kodeVoucher.equals("VOUCHER20")) {
+            if (subtotal <= 125000) {
+                subtotal *= 0.80;
+            } else {
+                subtotal -= 25000;
+            }
+        } else {
         }
-        return total;
+        return subtotal + ongkir - memberDiscount;
     }
 }

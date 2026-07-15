@@ -13,7 +13,7 @@ public class Produk {
         this.stok = stok;
     }
     public String getNama() {
-        return nama;
+        return this.nama;
     }
     public int getHarga() {
         return harga;
@@ -22,12 +22,16 @@ public class Produk {
         return this.berat;
     }
     public int getStok() {
-        return stok;
+        return this.stok;
     }
     public int getKuantitas() {
         return kuantitas;
     }
     public void setKuantitas(int kuantitas) {
-        this.kuantitas = kuantitas;
+        if (kuantitas < 0) {
+            System.out.println("Kuantitas tidak boleh kurang dari 0!");
+        } else {
+            this.kuantitas = kuantitas;
+        }
     }
 }
