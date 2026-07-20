@@ -14,6 +14,7 @@ public class Keranjang {
         keranjang.add(produk);
         produk.setKuantitas(kuantitas);
         System.out.println("Produk berhasil ditambahkan ke keranjang!");
+        System.out.println("");
         return true;
     }
     /** Total harga seluruh item sebelum ongkir dan berat. */
@@ -73,5 +74,9 @@ public class Keranjang {
         } else {
         }
         return subtotal + ongkir - memberDiscount;
+    }
+    /** Mendapatkan daftar produk dalam keranjang. */
+    public ArrayList<Produk> getKeranjang() {
+        return keranjang;
     }
 }
